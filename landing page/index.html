@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IronPulse Fitness</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0d0d0d;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(13, 13, 13, 0.95);
+            padding: 1.2rem 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 3px solid #ff4500;
+        }
+
+        .brand {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #ff4500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .menu {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .menu a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .menu a:hover {
+            color: #ff4500;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23222" width="1200" height="800"/><path fill="%23333" d="M0 400L50 420L100 380L150 410L200 390L250 425L300 395L350 415L400 385L450 420L500 400L550 430L600 410L650 395L700 425L750 405L800 390L850 420L900 400L950 415L1000 395L1050 425L1100 405L1150 390L1200 420V800H0Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 69, 0, 0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .hero-text {
+            max-width: 900px;
+            padding: 0 2rem;
+            z-index: 2;
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-text h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: #ff4500;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+            letter-spacing: 3px;
+        }
+
+        .hero-text .tagline {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: #dddddd;
+            font-weight: 300;
+        }
+
+        .action-btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: #ff4500;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 20px rgba(255, 69, 0, 0.4);
+        }
+
+        .action-btn:hover {
+            background: #ff6a33;
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(255, 69, 0, 0.6);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: #1a1a1a;
+            padding: 4rem 6%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            border-top: 3px solid #ff4500;
+            border-bottom: 3px solid #ff4500;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 2rem;
+            background: #0d0d0d;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ff4500;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: #aaaaaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Programs Section */
+        .programs {
+            padding: 6rem 6%;
+            background: #0d0d0d;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ff4500;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #aaaaaa;
+        }
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .program-card {
+            background: linear-gradient(145deg, #1a1a1a, #262626);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border-left: 5px solid #ff4500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 69, 0, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 69, 0, 0.3);
+            border-left-width: 8px;
+        }
+
+        .program-card h3 {
+            font-size: 1.8rem;
+            color: #ff4500;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .program-card p {
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .program-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .program-features li {
+            padding: 0.5rem 0;
+            color: #aaaaaa;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .program-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #ff4500;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            padding: 3rem 6%;
+            text-align: center;
+            border-top: 3px solid #ff4500;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #aaaaaa;
+            text-decoration: none;
+            font-size: 1rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #ff4500;
+        }
+
+        .copyright {
+            color: #666666;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .hero-text .tagline {
+                font-size: 1.3rem;
+            }
+
+            .menu {
+                gap: 1.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="brand">💪 IRONPULSE</div>
+        <ul class="menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#programs">Programs</a></li>
+            <li><a href="#trainers">Trainers</a></li>
+            <li><a href="#join">Join Now</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-banner" id="home">
+        <div class="hero-text">
+            <h1>NO PAIN, NO GAIN</h1>
+            <p class="tagline">Transform Your Body. Transform Your Life.</p>
+            <a href="#" class="action-btn">Start Your Journey</a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stat-box">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Active Members</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Expert Trainers</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">Success Stories</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Gym Access</div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs" id="programs">
+        <div class="section-header">
+            <h2>Our Programs</h2>
+            <p>Choose the perfect training program for your fitness goals</p>
+        </div>
+
+        <div class="program-grid">
+            <div class="program-card">
+                <h3>Strength Training</h3>
+                <p>Build massive muscle and increase your overall strength with our intensive weightlifting program.</p>
+                <ul class="program-features">
+                    <li>Personalized workout plans</li>
+                    <li>Progressive overload techniques</li>
+                    <li>Nutrition guidance</li>
+                    <li>Weekly progress tracking</li>
+                </ul>
+            </div>
+
+            <div class="program-card">
+                <h3>Cardio Blast</h3>
+                <p>Burn fat and boost your endurance with high-intensity cardio workouts designed for maximum results.</p>
+                <ul class="program-features">
+                    <li>HIIT sessions</li>
+                    <li>Heart rate monitoring</li>
+                    <li>Calorie tracking</li>
+                    <li>Group classes available</li>
+                </ul>
+            </div>
+
+            <div class="program-card">
+                <h3>CrossFit Elite</h3>
+                <p>Push your limits with our challenging CrossFit program combining strength, conditioning, and agility.</p>
+                <ul class="program-features">
+                    <li>Functional movements</li>
+                    <li>Olympic lifting</li>
+                    <li>Community challenges</li>
+                    <li>Competition prep</li>
+                </ul>
+            </div>
+
+            <div class="program-card">
+                <h3>Body Sculpting</h3>
+                <p>Achieve the physique you've always wanted with targeted exercises and expert guidance.</p>
+                <ul class="program-features">
+                    <li>Muscle toning routines</li>
+                    <li>Body composition analysis</li>
+                    <li>Customized meal plans</li>
+                    <li>1-on-1 coaching</li>
+                </ul>
+            </div>
+
+            <div class="program-card">
+                <h3>Athletic Performance</h3>
+                <p>Elevate your game with sports-specific training designed to enhance speed, power, and agility.</p>
+                <ul class="program-features">
+                    <li>Speed & agility drills</li>
+                    <li>Explosive power training</li>
+                    <li>Sport-specific movements</li>
+                    <li>Recovery protocols</li>
+                </ul>
+            </div>
+
+            <div class="program-card">
+                <h3>Flexibility & Mobility</h3>
+                <p>Improve your range of motion, prevent injuries, and enhance overall performance with our mobility program.</p>
+                <ul class="program-features">
+                    <li>Dynamic stretching</li>
+                    <li>Yoga sessions</li>
+                    <li>Foam rolling techniques</li>
+                    <li>Injury prevention</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Membership</a>
+            <a href="#">Schedule</a>
+            <a href="#">Contact</a>
+            <a href="#">FAQs</a>
+        </div>
+        <p class="copyright">© 2024 IronPulse Fitness. Built for Champions.</p>
+    </footer>
+</body>
+</html>
